@@ -26,46 +26,7 @@
         function generateId() {
             return Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
         }
-        // Library Code
-        // function createStore(reducer) {
-        //     // The store should have four parts
-        //     // 1. The state
-        //     // 2. Get the state. (getState)
-        //     // 3. Listen to changes on the state. (subscribe)
-        //     // 4. Update the state (dispatch)
 
-        //     let state
-        //     let listeners = []
-
-        //     const getState = () => state
-
-        //     const subscribe = (listener) => {
-        //         listeners.push(listener)
-        //         return () => {
-        //             listeners = listeners.filter((l) => l !== listener)
-        //         }
-        //     }
-
-        //     const dispatch = (action) => {
-        //         // call reducer
-        //         state = reducer(state, action)
-        //         // loop over listeners and invloke them
-        //         listeners.forEach((listener) => listener())
-        //     }
-
-        //     return {
-        //         getState,
-        //         subscribe,
-        //         dispatch,
-        //     }
-        // }
-
-        /*
-        Characteristics of a Pure Function
-        1) They always return the same result if the same arguments are passed in.
-        2) They depend only on the arguments passed into them.
-        3) Never produce any side effects.
-        */
         // App Code
         const ADD_TODO = 'ADD_TODO'
         const REMOVE_TODO = 'REMOVE_TODO'
@@ -121,18 +82,6 @@
                 default:
                     return state
             }
-
-            // if (action.type === 'ADD_TODO') {
-            //   return state.concat([action.todo])
-            // }else if (action.type === 'REMOVE_TODO'){
-            //     return state.filter((todo) => todo.id !== action.id)
-            // }else if(action.type === 'TOGGLE_TODO'){
-            //     return state.map((todo) => todo.id !== action.id ? todo : 
-            //         Object.assign({}, todo, {complete: !todo.complete})   
-            //     )
-            // }else{
-            //     return state
-            // } 
         }
 
         function goals(state = [], action) {
@@ -146,22 +95,12 @@
             }
         }
 
-        // function app(state = {}, action) {
-        //     return {
-        //         todos: todos(state.todos, action),
-        //         goals: goals(state.goals, action)
-        //     }
-        // }
-
-        // const store = Redux.createStore(app)
-
         const store = Redux.createStore(Redux.combineReducers({
             todos,
             goals,
         }))
 
         store.subscribe(() => {
-            //console.log('The new state is: ', store.getState())
             const { goals, todos } = store.getState()
 
             document.getElementById('goals').innerHTML = ''
@@ -169,9 +108,6 @@
             
             goals.forEach(addGoalToDOM)
             todos.forEach(addTodoToDOM)
-
-            // console.log('goals', goals)
-            // console.log('todos', todos)
         })
 
         // DOM Code
